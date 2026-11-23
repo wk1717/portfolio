@@ -1,8 +1,8 @@
-# 송민교 포트폴리오
+# 포트폴리오
 
-동국대학교 정보통신공학과 송민교의 개발 포트폴리오 사이트입니다.
+개발 포트폴리오 사이트입니다.
 
-**사이트** · https://mango-portfolio-lake.vercel.app
+**사이트** https://mango-portfolio-lake.vercel.app
 
 ![메인 화면](images/readme-home.webp)
 
