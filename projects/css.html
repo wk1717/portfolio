@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS · 송민교</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="hero small">
+  <div class="wrap">
+    <nav class="nav">
+      <a class="logo" href="../index.html">Mango<span>.</span></a>
+      <ul><li><a href="../index.html#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul>
+    </nav>
+    <div class="hero-body">
+      <a class="back" href="../index.html#projects">← 프로젝트 목록</a>
+      <h1>CSS (Children Safety System)</h1>
+      <div class="meta"><span><b>시기</b> 2023</span><span><b>분야</b> IoT</span><span><b>규모</b> 6명</span><span><b>수상</b> 어드벤처디자인 교내 장려상</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section><h2>개요</h2><ul class="list"><li>부엌에 들어간 아이의 사고(전자레인지 화재 등)를 막는 IoT 안전 관리 시스템</li><li>하드웨어 센서 제어와 모바일 알림을 결합</li><li>교내 아이디어 경진대회 장려상 수상</li></ul></section>
+  <section><h2>회로</h2><div class="figs"><figure class="narrow"><img src="../images/css-circuit.webp" alt="회로 구성: Arduino UNO, RFID, 초음파·온도·불꽃 센서, Wi-Fi 모듈" loading="lazy"><figcaption>회로 구성: Arduino UNO, RFID, 초음파·온도·불꽃 센서, Wi-Fi 모듈</figcaption></figure></div></section>
+  <section><h2>기술 스택</h2><div class="chips"><span class="chip">Arduino</span><span class="chip">RFID</span><span class="chip">초음파 센서</span><span class="chip">온도 센서</span><span class="chip">불꽃 감지 센서</span><span class="chip">Pushingbox</span><span class="chip">Pushbullet</span></div></section>
+  <section><h2>작동 원리</h2><div class="result"><h3>출입</h3><ul class="list"><li>보호자가 부엌을 나갈 때 RFID 카드 태그</li><li>RFID 인식 시 아이 보호 모드(센서 감지) 시작</li></ul></div><div class="result"><h3>센서</h3><ul class="list"><li>초음파 센서: 보호자 접근이 감지되면 감지 동작 중지</li><li>온도 센서: 일정 온도 이상이면 보호자에게 알림</li><li>불꽃 감지 센서: 불꽃 감지 시 보호자에게 알림</li></ul></div><div class="result"><h3>알림</h3><ul class="list"><li>아두이노 HTTP 통신으로 신호 전송</li><li>Pushingbox 시나리오 실행 → 연동된 PC의 Pushbullet으로 알림</li><li>PC와 연결된 휴대폰에 알림 전달</li></ul></div></section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div><small>EMAIL</small><a href="mailto:smk78449@naver.com">smk78449@naver.com</a></div>
+      <div><small>GITHUB</small><a href="https://github.com/wk1717" target="_blank" rel="noopener">github.com/wk1717</a></div>
+    </div>
+    <p class="copy">© 2026 송민교</p>
+  </div>
+</footer>
+<script src="../lightbox.js"></script>
+</body>
+</html>
