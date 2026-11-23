@@ -16,17 +16,17 @@
     <div class="hero-body">
       <a class="back" href="../index.html#projects">← 프로젝트 목록</a>
       <h1>MediGuard</h1>
-      <div class="meta"><span><b>시기</b> 2025.03</span><span><b>분야</b> 모바일 앱</span><span><b>상태</b> 완료</span></div>
+      <div class="meta"><span><b>시기</b> 2025.03</span><span><b>분야</b> 모바일 앱</span><span><b>상태</b> 완료</span><span><b>수상</b> 한이음 드림업 창의도전형 장려상</span></div>
     </div>
   </div>
 </header>
 
 <main class="wrap">
 
-  <section><h2>개요</h2><ul class="list"><li>환자가 부작용·기분·진료 일정을 기록하고 관리하는 React Native 앱</li><li>다단계 회원가입, Face ID 로그인, 홈 캘린더, 부작용 기록 관리 화면 구현</li></ul></section>
+  <section><h2>개요</h2><ul class="list"><li>환자가 부작용·기분·진료 일정을 기록하고 관리하는 React Native 앱</li><li>2025 한이음 드림업(ICT 멘토링) 창의도전형 장려상 수상</li><li>다단계 회원가입, Face ID 로그인, 홈 캘린더, 부작용 기록 관리 화면 구현</li></ul></section>
   <section><h2>화면</h2><div class="figs"><figure><img src="../images/mediguard-screens.webp" alt="주요 화면: 홈, 마이페이지, 약물 등록, 진료 페이지, 전체 메뉴" loading="lazy"><figcaption>주요 화면: 홈, 마이페이지, 약물 등록, 진료 페이지, 전체 메뉴</figcaption></figure><figure><img src="../images/mediguard-login.webp" alt="로그인 · Face ID 흐름" loading="lazy"><figcaption>로그인 · Face ID 흐름</figcaption></figure></div></section>
   <section><h2>기술 스택</h2><div class="chips"><span class="chip">React Native</span><span class="chip">TypeScript</span><span class="chip">React Hook Form</span><span class="chip">Context API</span><span class="chip">Axios</span><span class="chip">SecureStore</span><span class="chip">Figma</span></div></section>
-  <section><h2>주요 기능 · 구현</h2><div class="result"><h3>부작용 기록 CRUD</h3><ul class="list"><li>부작용 등록·수정·삭제</li><li>Axios 인스턴스로 POST·PATCH·DELETE 요청 모듈화</li></ul></div><div class="result"><h3>에러 처리 표준화</h3><ul class="list"><li>서버 응답 에러, 네트워크 에러, 인증 만료(AUTH_EXPIRED)를 <code>handleApiError</code> 하나에서 같은 형태의 에러 객체로 통일</li><li><code>AxiosError&lt;SideEffectResponse&gt;</code> 제네릭으로 서버 응답 타입을 지정해 런타임 에러를 줄임</li></ul></div></section>
+  <section><h2>역할</h2><div class="result"><h3>부작용 기록 CRUD</h3><ul class="list"><li>부작용 등록·수정·삭제</li><li>Axios 인스턴스로 POST·PATCH·DELETE 요청 모듈화</li></ul></div><div class="result"><h3>에러 처리 표준화</h3><ul class="list"><li>서버 응답 에러, 네트워크 에러, 인증 만료(AUTH_EXPIRED)를 <code>handleApiError</code> 하나에서 같은 형태의 에러 객체로 통일</li><li><code>AxiosError&lt;SideEffectResponse&gt;</code> 제네릭으로 서버 응답 타입을 지정해 런타임 에러를 줄임</li></ul></div></section>
   <section><h2>기술 선택 이유</h2><div class="result"><h3>Context API + React Hook Form</h3><ul class="list"><li>여러 페이지로 나뉜 회원가입 입력값을 전역 상태로 관리</li><li>복잡한 폼의 상태 변화를 한눈에 파악</li></ul></div><div class="result"><h3>Axios + SecureStore</h3><ul class="list"><li>Axios: 서버 에러·네트워크 문제·로그인 만료를 공통 함수 하나로 처리</li><li>SecureStore: Face ID 설정값, 로그인 토큰 등 민감 정보를 암호화 저장소에 보관</li></ul></div></section>
   <section><h2>회고</h2><div class="retro"><h3>로그인 · 회원가입</h3><ul class="list"><li>Face ID 설정은 로그인 직후에만 뜸. 설정 화면에서 켜고 끄는 메뉴는 못 만듦</li><li>인증 실패 시 일반 로그인으로만 보냄. 권한 허용 방법 안내는 없음</li><li><code>transformSignupData</code>로 서버 형식을 맞췄지만 필드가 늘수록 함수가 길어짐 → 다음엔 Mapper로 분리</li><li>회원가입 중간에 나가면 입력값이 사라짐</li></ul></div><div class="retro"><h3>홈</h3><ul class="list"><li>정보가 없을 때 안내 문구만 표시. 진료 일정 등록으로 바로 가는 버튼은 없음</li></ul></div><div class="retro"><h3>환자 페이지 · 부작용 관리</h3><ul class="list"><li><code>sort(() =&gt; Math.random() - 0.5)</code>는 요소가 많아지면 편향이 생긴다는 걸 알게 됨 → Fisher-Yates 셔플로 바꿔야 함</li><li>기분·부작용 데이터는 리스트로만 보여줌, 월간 그래프는 못 만듦</li><li>에러는 화면에서만 처리, Sentry 같은 수집 도구는 연동 안 함</li><li>수정·삭제 시 서버 응답을 기다린 뒤에야 화면이 바뀜</li></ul></div></section>
 </main>
