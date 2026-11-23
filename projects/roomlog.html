@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoomLog · 송민교</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="hero small">
+  <div class="wrap">
+    <nav class="nav">
+      <a class="logo" href="../index.html">Mango<span>.</span></a>
+      <ul><li><a href="../index.html#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul>
+    </nav>
+    <div class="hero-body">
+      <a class="back" href="../index.html#projects">← 프로젝트 목록</a>
+      <h1>RoomLog</h1>
+      <div class="meta"><span><b>기간</b> 2026.04 ~ 2026.10</span><span><b>분야</b> iOS 앱</span><span><b>규모</b> 5명 + 멘토 1명 (iOS 2 · 백엔드 1 · AI 1 · 디자인 1)</span><span><b>수상</b> 한이음 드림업 창의도전형 동상</span><span><b>App Store</b> <a href="https://apps.apple.com/kr/app/roomlog-3d-%EC%8A%A4%EC%BA%94-%EB%B0%A9-%ED%95%98%EC%9E%90-%EA%B8%B0%EB%A1%9D/id6819330161" target="_blank" rel="noopener">RoomLog - 3D 스캔 방 하자 기록</a></span><span><b>저장소</b> <a href="https://github.com/Hanium-Team404/roomlog-ios" target="_blank" rel="noopener">Hanium-Team404/roomlog-ios</a></span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section><h2>개요</h2><ul class="list"><li>LiDAR로 입주 때와 퇴거 때 방을 3D로 스캔하고, 서버가 찾은 하자를 비교·관리하는 iOS 앱 (App Store 출시)</li><li>하자별 예상 수리비, 자가 수리 안내, 주변 수리업체 문의까지 연결</li><li>2026 한이음 드림업(ICT 멘토링) 프로젝트, 창의도전형 동상 수상 (Team 404)</li><li>담당: 3D 뷰어 · 하자 점검 · 내방비교 · 수리 견적</li><li>프로젝트 발표와 시연 시나리오 작성 담당</li></ul></section>
+  <section><h2>화면</h2><div class="flow"><h3>하자 점검</h3><div class="phones"><figure><img src="../images/roomlog/defect-1-entry.webp" alt="점검 진입" loading="lazy"><figcaption>점검 진입</figcaption></figure><figure><img src="../images/roomlog/defect-2-space.webp" alt="공간 선택" loading="lazy"><figcaption>공간 선택</figcaption></figure><figure><img src="../images/roomlog/defect-3-3d.webp" alt="3D에서 하자 위치 확인" loading="lazy"><figcaption>3D에서 하자 위치 확인</figcaption></figure><figure><img src="../images/roomlog/defect-4-result.webp" alt="분석 결과" loading="lazy"><figcaption>분석 결과</figcaption></figure></div></div><div class="flow"><h3>내방비교</h3><div class="phones"><figure><img src="../images/roomlog/compare-1-house.webp" alt="집 선택" loading="lazy"><figcaption>집 선택</figcaption></figure><figure><img src="../images/roomlog/compare-2-before.webp" alt="이전 방 선택" loading="lazy"><figcaption>이전 방 선택</figcaption></figure><figure><img src="../images/roomlog/compare-3-after.webp" alt="현재 방 선택" loading="lazy"><figcaption>현재 방 선택</figcaption></figure><figure><img src="../images/roomlog/compare-4-result.webp" alt="비교 결과" loading="lazy"><figcaption>비교 결과</figcaption></figure><figure><img src="../images/roomlog/compare-5-new.webp" alt="새로 생긴 하자" loading="lazy"><figcaption>새로 생긴 하자</figcaption></figure></div></div><div class="flow"><h3>하자 상세 · 자가 수리 · 수리업체</h3><div class="phones"><figure><img src="../images/roomlog/extra-1-defect.webp" alt="하자 상세" loading="lazy"><figcaption>하자 상세</figcaption></figure><figure><img src="../images/roomlog/extra-2-selfrepair.webp" alt="자가 수리 안내" loading="lazy"><figcaption>자가 수리 안내</figcaption></figure><figure><img src="../images/roomlog/extra-3-shops.webp" alt="수리업체 지도" loading="lazy"><figcaption>수리업체 지도</figcaption></figure></div></div></section>
+  <section><h2>기술 스택</h2><div class="chips"><span class="chip">Swift 6</span><span class="chip">SwiftUI</span><span class="chip">SceneKit</span><span class="chip">Swift Concurrency</span><span class="chip">Observation</span><span class="chip">Moya</span><span class="chip">KakaoMapsSDK</span><span class="chip">GitHub Actions</span></div></section>
+  <section><h2>맡은 기능</h2><div class="result"><h3>하자 점검</h3><ul class="list"><li>DTO → Repository → UseCase → Provider → ViewModel 순서로 Clean Architecture 계층 구성</li><li>API가 나오기 전에는 Mock Repository로 화면부터 개발, 이후 실제 API로 교체</li><li>하자 유형·심각도·예상 수리비 표시, 자가 수리 가이드 API 연동과 카드 UI 구현</li></ul></div><div class="result"><h3>3D 뷰어 · 하자 마커</h3><ul class="list"><li>SceneKit으로 PLY 방 모델을 띄우고 하자 위치에 영역과 마커 표시</li><li>하자를 누르면 해당 위치로 카메라 이동, 방향 조작 바와 초기화 버튼 추가</li><li>마커를 SCNText 대신 UIImage 텍스처로 바꿔 렌더링 안정화, 하자 이름과 면적 2줄 표시</li></ul></div><div class="result"><h3>내방비교</h3><ul class="list"><li>입주 전·퇴거 후 스캔 선택 → AI 분석 요청 → 결과·내역 조회 API 연동</li><li>분석 진행 중 폴링 상태 표시, 중복 분석 요청 방지</li><li>결과 화면에서 입주 전/퇴거 후 3D 모델 전환</li></ul></div><div class="result"><h3>수리 견적</h3><ul class="list"><li>KakaoMapsSDK로 추천 수리업체 지도·목록 표시</li><li>문의 내용을 SMS 작성 화면으로 연결, 수리 내역에 실제 수리비와 메모 기록</li></ul></div></section>
+  <section><h2>트러블슈팅</h2><div class="retro"><h3>3D 화면 재진입이 느림</h3><ul class="list"><li>PLY 파일 파싱(MDLAsset → SCNScene)이 메인 스레드에서 돌아 화면이 몇 초씩 멈춤</li><li>파싱을 백그라운드 Task로 옮기고, 파싱된 씬을 NSCache에 보관 (비교 화면이 2개를 동시에 써서 최대 3개 유지)</li><li>캐시 키에 파일 수정 시각을 넣어 파일이 바뀌면 자동으로 다시 파싱</li></ul></div><div class="retro"><h3>스캔 ID와 방 ID 캐시 키 불일치</h3><ul class="list"><li>방 생성 전에는 scanId, 생성 후에는 roomId로 PLY 캐시를 찾아서 이미 받은 파일을 다시 다운로드</li><li>방 생성 API가 roomId를 돌려주게 바꾸고, 캐시 파일을 새 키로 옮기는 rekey 추가</li><li>원격 URL을 같이 저장해 재분석으로 파일이 바뀌면 새로 받도록 처리</li></ul></div><div class="retro"><h3>집을 빠르게 바꾸면 이전 집 목록이 표시됨</h3><ul class="list"><li>집 A → B로 바로 바꾸면 늦게 도착한 A의 방 목록 응답이 B 화면을 덮어씀</li><li>이전 요청 Task를 취소하고, 응답이 왔을 때 선택된 집이 그대로인지 확인한 뒤 반영</li><li>비교 내역 목록에도 같은 방식 적용</li></ul></div><div class="retro"><h3>CI 빌드 실패</h3><ul class="list"><li>GitHub Actions에서 SPM 캐시가 손상돼 빌드 실패</li><li>SPM 저장소 캐시를 지우는 단계를 캐시 복원 전에 추가</li></ul></div><div class="retro"><h3>시트 저장 시 컴파일러 크래시</h3><ul class="list"><li>집·방 수정 시트의 async onSave 클로저에서 컴파일러가 만든 thunk가 크래시</li><li>클로저 타입에 @MainActor를 명시해 우회</li></ul></div></section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div><small>EMAIL</small><a href="mailto:smk78449@naver.com">smk78449@naver.com</a></div>
+      <div><small>GITHUB</small><a href="https://github.com/wk1717" target="_blank" rel="noopener">github.com/wk1717</a></div>
+    </div>
+    <p class="copy">© 2026 송민교</p>
+  </div>
+</footer>
+<script src="../lightbox.js"></script>
+</body>
+</html>
