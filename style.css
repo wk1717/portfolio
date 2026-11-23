@@ -135,14 +135,16 @@ figure.narrow img { max-width: 520px; }
 figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
 
 .alink::after { content: " →"; color: var(--muted); }
-.alink, .plist b { position: relative; z-index: 0; width: fit-content; }
-.alink::before, .plist b::before {
+.alink { position: relative; z-index: 0; }
+.alink::before {
   content: ""; position: absolute; inset: -8px -24px; z-index: -1;
   background: radial-gradient(ellipse at center, rgba(255,176,32,.55), rgba(255,176,32,.18) 45%, transparent 72%);
   opacity: 0; transition: opacity .25s;
 }
 .alink:hover { color: var(--ink); }
-.alink:hover::before, .plist a:hover b::before { opacity: 1; }
+.alink:hover::before { opacity: 1; }
+.plist a { transition: background .2s; padding-inline: 12px; }
+.plist a:hover { background: #fffbf3; }
 .result figure { margin-top: 20px; }
 .meta a { text-decoration: underline; text-underline-offset: 3px; }
 .flow + .flow { margin-top: 36px; }
