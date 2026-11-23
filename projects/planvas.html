@@ -16,7 +16,7 @@
     <div class="hero-body">
       <a class="back" href="../index.html#projects">← 프로젝트 목록</a>
       <h1>PlanVas</h1>
-      <div class="meta"><span><b>시작</b> 2025.01</span><span><b>분야</b> iOS 앱</span><span><b>상태</b> 완료</span></div>
+      <div class="meta"><span><b>시작</b> 2025.01</span><span><b>분야</b> iOS 앱</span><span><b>소속</b> UMC 9기</span><span><b>상태</b> 완료</span></div>
     </div>
   </div>
 </header>
@@ -26,7 +26,7 @@
   <section><h2>개요</h2><ul class="list"><li>성장·휴식 목표 비율을 정하고 캘린더와 연동해 일정을 관리하는 SwiftUI 앱</li><li>온보딩·마이페이지의 목표 설정 흐름, 서버 API 연동, 화면 간 내비게이션 구조 담당</li></ul></section>
   <section><h2>화면</h2><div class="figs"><figure><img src="../images/planvas-screens.webp" alt="주요 화면: 로그인, 홈, 캘린더, 활동 탐색, 마이페이지" loading="lazy"><figcaption>주요 화면: 로그인, 홈, 캘린더, 활동 탐색, 마이페이지</figcaption></figure><figure class="narrow"><img src="../images/planvas-login.webp" alt="시작 · 로그인 완료 화면" loading="lazy"><figcaption>시작 · 로그인 완료 화면</figcaption></figure></div></section>
   <section><h2>기술 스택</h2><div class="chips"><span class="chip">Swift</span><span class="chip">SwiftUI</span><span class="chip">Combine</span><span class="chip">Moya</span><span class="chip">Alamofire</span><span class="chip">Keychain</span><span class="chip">.xcconfig</span></div></section>
-  <section><h2>주요 기능 · 구현</h2><div class="result"><h3>목표 비율 설정과 API 연동</h3><ul class="list"><li>추천 버튼으로 성장·휴식 목표 비율 선택 → ViewModel 상태 갱신</li><li>'완료' 시 날짜를 서버 규격 문자열로 변환</li><li>온보딩: 캘린더 연동 단계로 이동</li><li>마이페이지: 목표 생성 요청 전송, 성공 시 설정 화면 스택을 비우고 마이페이지로 복귀</li></ul></div><div class="result"><h3>환경 값으로 내비게이션 의존성 해결</h3><ul class="list"><li><code>NavigationRouter&lt;T&gt;</code>와 <code>FlowContext</code>를 SwiftUI 환경 값으로 주입</li><li>같은 화면을 온보딩과 마이페이지에서 함께 사용</li></ul></div></section>
+  <section><h2>역할</h2><div class="result"><h3>목표 비율 설정과 API 연동</h3><ul class="list"><li>추천 버튼으로 성장·휴식 목표 비율 선택 → ViewModel 상태 갱신</li><li>'완료' 시 날짜를 서버 규격 문자열로 변환</li><li>온보딩: 캘린더 연동 단계로 이동</li><li>마이페이지: 목표 생성 요청 전송, 성공 시 설정 화면 스택을 비우고 마이페이지로 복귀</li></ul></div><div class="result"><h3>환경 값으로 내비게이션 의존성 해결</h3><ul class="list"><li><code>NavigationRouter&lt;T&gt;</code>와 <code>FlowContext</code>를 SwiftUI 환경 값으로 주입</li><li>같은 화면을 온보딩과 마이페이지에서 함께 사용</li></ul></div></section>
   <section><h2>기술 선택 이유</h2><div class="result"><h3>Moya</h3><ul class="list"><li>Alamofire만 쓰면 Base URL·메서드·헤더를 요청마다 작성해야 함</li><li>모든 API 요청을 enum으로 관리</li></ul></div><div class="result"><h3>Combine</h3><ul class="list"><li>@State, @Binding만으로는 서버 데이터 반영·비동기 처리 시 데이터 흐름 추적이 어려움</li><li>ViewModel에서 흐름을 한눈에 파악</li></ul></div><div class="result"><h3>Keychain · .xcconfig</h3><ul class="list"><li>accessToken은 UserDefaults 대신 암호화 저장소인 Keychain에 보관</li><li>BASE_URL, CLIENT_ID를 코드 대신 .xcconfig에 두고 Debug/Release별 서버 주소 분리, Info.plist가 깃에 올라가도 값이 안 보이게 함</li></ul></div></section>
   <section><h2>트러블슈팅</h2><div class="retro"><h3>재사용 화면에서 내비게이션 중첩 · 강제 종료</h3><p><b>현상</b></p><ul class="list"><li>화면마다 독립 내비게이션 스택을 두는 FlowView 구조</li><li>다른 흐름에서 화면을 재사용하면 NavigationStack 중첩, ViewModel·Router 미주입으로 런타임 크래시</li></ul><p><b>원인</b></p><ul class="list"><li>각 화면이 특정 라우터에 강하게 의존</li><li>온보딩·마이페이지처럼 다른 맥락에서 호출하면 필요한 의존성이 없음</li></ul><p><b>해결</b></p><ul class="list"><li>전체 구조 변경이 어려워 EnvironmentKey로 <code>FlowContextKey</code> 생성</li><li>각 흐름의 시작 화면에서 <code>.environment(\.flowContext, .myPage)</code>처럼 현재 흐름 주입</li><li>하위 화면은 라우터 존재 여부 대신 이 값으로 이동 경로·API 호출 여부 결정</li></ul><p><b>배운 점</b></p><ul class="list"><li>화면이 특정 라우터 클래스에 직접 묶여 있으면 다른 흐름에서 재사용하기 어려움</li><li>다음엔 화면 이동을 Coordinator 같은 한 곳에서 관리할 생각</li></ul></div></section>
 </main>

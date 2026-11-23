@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PeakTime · 송민교</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="hero small">
+  <div class="wrap">
+    <nav class="nav">
+      <a class="logo" href="../index.html">Mango<span>.</span></a>
+      <ul><li><a href="../index.html#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul>
+    </nav>
+    <div class="hero-body">
+      <a class="back" href="../index.html#projects">← 프로젝트 목록</a>
+      <h1>PeakTime</h1>
+      <div class="meta"><span><b>기간</b> 2026.04 ~ 2026.06</span><span><b>분야</b> iOS 앱</span><span><b>소속</b> 디프만 18기</span><span><b>저장소</b> <a href="https://github.com/depromeet/18th-team5-iOS" target="_blank" rel="noopener">depromeet/18th-team5-iOS</a></span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section><h2>개요</h2><ul class="list"><li>24절기에 맞춰 제철 미션을 받고, 제철 일상을 사진으로 기록하는 iOS 앱</li><li>IT 연합 동아리 디프만(DEPROMEET) 18기 프로젝트</li><li>담당: 홈, 캘린더, 절기 소개 화면, 절기 콘텐츠 이미지 서버 전환</li><li>팀 협업 환경 세팅: 커밋 컨벤션 자동화(Husky, Gitmoji), PR와 이슈 템플릿, CODEOWNERS</li></ul></section>
+  <section><h2>화면</h2><div class="flow"><h3>홈과 절기 상세 (스크롤 전체)</h3><div class="phones long"><figure><img src="../images/peaktime/home-full.webp" alt="홈" loading="lazy"><figcaption>홈</figcaption></figure><figure><img src="../images/peaktime/detail-full.webp" alt="절기 상세" loading="lazy"><figcaption>절기 상세</figcaption></figure></div></div><div class="flow"><h3>홈 제철 기록 사진 (사진 수별 배치)</h3><div class="phones photos"><figure><img src="../images/peaktime/photo-1.webp" alt="1장" loading="lazy"><figcaption>1장</figcaption></figure><figure><img src="../images/peaktime/photo-2.webp" alt="2장" loading="lazy"><figcaption>2장</figcaption></figure><figure><img src="../images/peaktime/photo-3.webp" alt="3장 이상" loading="lazy"><figcaption>3장 이상</figcaption></figure></div></div><div class="flow"><h3>절기 소개</h3><div class="phones"><figure><img src="../images/peaktime/2-intro-photo.webp" alt="현재 절기 (사진 카드)" loading="lazy"><figcaption>현재 절기 (사진 카드)</figcaption></figure><figure><img src="../images/peaktime/3-intro-card.webp" alt="다른 절기 (기본 카드)" loading="lazy"><figcaption>다른 절기 (기본 카드)</figcaption></figure></div></div></section>
+  <section><h2>기술 스택</h2><div class="chips"><span class="chip">Swift</span><span class="chip">SwiftUI</span><span class="chip">TCA</span><span class="chip">Tuist</span><span class="chip">Firebase Storage</span><span class="chip">Kingfisher</span><span class="chip">Swift Concurrency</span></div></section>
+  <section><h2>역할</h2><div class="result"><h3>홈</h3><ul class="list"><li>오늘의 절기 카드, 미션 추천 배너, 제철 기록 사진 섹션 구현</li><li>미션 추천 카드를 누르면 미션 탭으로 이동해 바텀시트까지 열리도록 연동, 추천 미션을 이미 끝냈으면 알림 표시</li><li>기록 사진을 누르면 그 사진을 찍은 날짜의 캘린더로 이동</li><li>데이터를 못 받았을 때 에러 상태와 재시도, 미션이 없을 때 빈 상태 화면 처리</li></ul></div><div class="result"><h3>제철 기록 사진 배치</h3><ul class="list"><li>사진 수에 따라 배치가 달라짐. 없으면 빈 상태 이미지, 1장이면 크게 한 장, 2장이면 두 장을 겹쳐서, 3장 이상이면 세 장을 조금씩 기울여 겹쳐서 보여줌</li><li>피그마에는 사진 위치가 px로만 나와 있어서, 사진마다 가운데 좌표를 직접 계산한 뒤 화면 너비에 대한 비율로 바꿈</li><li>예를 들어 2장일 때 오른쪽 사진(144px)은 303×176 틀의 오른쪽 아래에 붙어 있음. 가운데 좌표는 x = 303 − 72 = 231, y = 176 − 72 = 104이고, 코드에는 <code>w * 231 / 303</code>, <code>h * 104 / 176</code>으로 넣음</li><li>처음엔 피그마 숫자를 그대로 넣었더니 화면이 넓거나 좁은 기기에서 사진이 어긋남. 비율로 바꾸고 틀의 가로세로 비율도 고정해서 해결</li></ul></div><div class="result"><h3>인터랙션</h3><ul class="list"><li>홈 헤더: 콘텐츠가 헤더 뒤로 지나가야 블러가 보여서 safeAreaInset 대신 overlay로 헤더를 띄움, 스크롤했을 때만 블러를 0.2초 페이드로 표시</li><li>절기 소개: 홈에서 들어오면 해당 계절 칩이 선택되고 그 절기 카드가 가운데 오도록 스크롤</li><li>계절을 바꾸면 현재 계절은 현재 절기, 다른 계절은 첫 절기로 이동</li><li>절기 상세: 콘텐츠 이미지가 여러 장이면 3초마다 자동으로 넘기고(0.5초 easeInOut) 스와이프도 가능, 아래에 인디케이터 표시</li><li>현재 절기 카드: 실사 이미지 아래쪽을 그라데이션 mask로 페이드아웃</li></ul></div><div class="result"><h3>컴포넌트</h3><ul class="list"><li>홈 절기 카드: 배치는 고정하고 절기만 넘기면 배경 이미지와 색이 그 절기에 맞게 바뀌도록 만듦</li><li>절기 소개 카드: 24절기 카드를 뷰 하나로 그리고, 현재 절기만 실사 사진을 얹은 카드로 따로 분리</li></ul></div><div class="result"><h3>캘린더</h3><ul class="list"><li>SwiftUI Path로 캘린더 모양을 직접 그리고, 날짜별 기록 상세 화면 구현</li><li>Entity, Repository 인터페이스, DTO, API를 계층별로 나눠 구성</li><li>미니 캘린더에서 다른 날짜를 누르면 상세 내용이 바로 바뀌도록 처리</li></ul></div><div class="result"><h3>설계</h3><ul class="list"><li>TCA 리듀서 간 통신 방식(Parent-Child, Sibling, Delegate)을 예제 코드로 정리</li><li>절기 소개 화면 이동을 delegate 액션으로 부모에게 넘기는 구조로 변경</li></ul></div></section>
+  <section><h2>성능 개선</h2><div class="result"><h3>앱 번들에 있던 절기 이미지와 데이터를 서버로 이전</h3><ul class="list"><li>절기 콘텐츠 이미지 15개(PDF, 약 3.9MB)와 628줄짜리 절기 JSON을 앱 번들에서 제거</li><li>Firebase Storage에 올리고 실행 중에 JSON과 이미지 URL을 받아오도록 변경</li><li>이미지는 처음엔 AsyncImage로 띄웠다가, 캐시를 쓰기 위해 Kingfisher로 교체</li><li>텍스트를 먼저 보여주고 이미지는 뒤에 채워서 화면 진입이 바로 되도록 처리</li></ul></div><div class="result"><h3>이미지 URL 요청 병렬화</h3><ul class="list"><li>콘텐츠마다 이미지 URL을 for문으로 한 개씩 기다리며 요청하고 있었음</li><li>TaskGroup으로 콘텐츠 단위, 이미지 단위 모두 병렬 요청으로 변경</li><li>병렬로 받아도 이미지 순서가 섞이지 않게 인덱스를 같이 받아 정렬</li><li>부모 Feature가 받은 데이터를 자식에 직접 넘겨 중복 API 호출 3건 제거</li></ul></div><div class="result"><h3>다운샘플링과 프리페치</h3><ul class="list"><li>화면에는 작게 보이는 사진도 원본 크기로 디코딩하고 있었음</li><li>Kingfisher 다운샘플링으로 표시 크기에 맞춰 디코딩</li><li>카드를 누르는 시점에 상세 이미지를 미리 받아두도록 프리페치 적용</li></ul></div></section>
+  <section><h2>트러블슈팅</h2><div class="retro"><h3>스크롤 전에도 헤더에 흰 띠가 보임</h3><ul class="list"><li>콘텐츠가 없는 영역에 깔린 블러는 머티리얼 자체의 흰 틴트 때문에 본문 그라데이션 위에 띠처럼 보임 (UIKit, SwiftUI 머티리얼 모두 동일)</li><li>하단 fade mask로 가려봤지만 페이드 영역이 헤더 아래 패딩을 잡아먹어 패딩이 없는 것처럼 보임</li><li>PreferenceKey로 스크롤 offset을 추적해, 스크롤했을 때만 블러를 띄우는 방식으로 변경</li></ul></div><div class="retro"><h3>홈 → 절기 소개 "더보기" 진입 시 무한 로딩</h3><ul class="list"><li>카드 데이터를 넘겨받는 경로와 달리, 절기 이름만 넘기는 경로에서는 데이터를 불러오는 곳이 없어 로딩이 끝나지 않음</li><li>데이터가 없을 때만 화면 진입 시 직접 불러오도록 처리, 카드와 절기 정보는 async let으로 동시에 요청</li></ul></div><div class="retro"><h3>계절 전환 시 카드 위치가 남음</h3><ul class="list"><li>스와이프한 카드 위치를 상태에 반영하지 않아, 계절을 바꾸면 이전 계절의 스크롤 위치가 남아 엉뚱한 카드가 보임</li><li>스크롤된 카드를 상태에 기록하고, 캐러셀에 <code>.id(season)</code>을 줘서 계절마다 새로 그리도록 수정</li></ul></div><div class="retro"><h3>날짜가 잘못 계산되는 버그</h3><ul class="list"><li>ISO8601DateFormatter에 타임존을 지정하지 않아 기기 시간대와 다른 기준으로 날짜가 계산됨</li><li>현재 타임존을 지정하고, 포매터는 static으로 한 번만 만들어 재사용</li></ul></div><div class="retro"><h3>미션 탭으로 이동한 뒤 이전 화면이 남아 있음</h3><ul class="list"><li>홈에서 미션 탭으로 넘어갈 때 쌓여 있던 네비게이션 경로가 그대로 남음</li><li>이동 전에 경로를 비우도록 수정</li></ul></div></section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div><small>EMAIL</small><a href="mailto:smk78449@naver.com">smk78449@naver.com</a></div>
+      <div><small>GITHUB</small><a href="https://github.com/wk1717" target="_blank" rel="noopener">github.com/wk1717</a></div>
+    </div>
+    <p class="copy">© 2026 송민교</p>
+  </div>
+</footer>
+<script src="../lightbox.js"></script>
+</body>
+</html>

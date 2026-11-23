@@ -91,7 +91,8 @@ ul.list li + li { margin-top: 6px; }
   display: grid; grid-template-columns: 110px 1fr auto; gap: 24px; align-items: baseline;
   padding: 22px 4px; border-bottom: 1px solid var(--line);
 }
-.plist .when { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.plist .when { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; align-self: stretch; display: flex; flex-direction: column; padding-top: 4px; min-height: 68px; }
+.plist .when em { margin-top: auto; font-style: normal; font-size: 12px; color: var(--muted); }
 .plist b { display: block; font-size: 19px; color: var(--ink); letter-spacing: -.01em; }
 .plist small { font-size: 14px; color: var(--muted); }
 .plist .stack { font-size: 13px; color: var(--muted); }
@@ -125,6 +126,8 @@ footer { background: var(--dark); color: rgba(255,255,255,.6); padding: 56px 0 3
   main { padding: 48px 0 64px; }
   .plist a { grid-template-columns: 1fr; gap: 4px; }
   .plist .when { order: -1; }
+  .plist .when { display: block; min-height: 0; padding-top: 0; }
+  .plist .when em { margin: 0 0 0 8px; }
 }
 
 code { font-family: ui-monospace, Menlo, monospace; font-size: .88em; background: var(--chip); padding: 1px 6px; border-radius: 4px; }
@@ -135,14 +138,9 @@ figure.narrow img { max-width: 520px; }
 figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
 
 .alink::after { content: " →"; color: var(--muted); }
-.alink { position: relative; z-index: 0; }
-.alink::before {
-  content: ""; position: absolute; inset: -8px -24px; z-index: -1;
-  background: radial-gradient(ellipse at center, rgba(255,176,32,.55), rgba(255,176,32,.18) 45%, transparent 72%);
-  opacity: 0; transition: opacity .25s;
-}
-.alink:hover { color: var(--ink); }
-.alink:hover::before { opacity: 1; }
+.awards li { position: relative; padding-inline: 12px; transition: background .2s; }
+.awards li:has(.alink):hover { background: #fffbf3; }
+.alink::before { content: ""; position: absolute; inset: 0; }
 .plist a { transition: background .2s; padding-inline: 12px; }
 .plist a:hover { background: #fffbf3; }
 .result figure { margin-top: 20px; }
@@ -156,3 +154,9 @@ figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
 figure img, .phones img { cursor: zoom-in; }
 .lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(15,16,20,.82); display: flex; align-items: center; justify-content: center; padding: 24px; cursor: zoom-out; }
 .lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; background: #fff; border-radius: 8px; }
+.phones.long { grid-template-columns: repeat(2, minmax(0, 220px)); gap: 28px; }
+.phones.long img { border: 1px solid var(--line, #eee); border-radius: 18px; }
+.phones.photos { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.phones.photos img { border: 1px solid var(--line); border-radius: 12px; }
+.lightbox.long { align-items: flex-start; overflow-y: auto; }
+.lightbox.long img { max-height: none; width: min(420px, 100%); }
