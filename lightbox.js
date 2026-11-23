@@ -6,6 +6,7 @@ document.addEventListener("click", (e) => {
     box.className = "lightbox";
     box.innerHTML = `<img src="${img.src}" alt="${img.alt}">`;
     box.onclick = () => box.remove();
+    if (img.naturalHeight > img.naturalWidth * 2.5) box.classList.add("long");
     document.body.append(box);
     return;
   }
